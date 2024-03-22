@@ -14,19 +14,19 @@ import (
 	"github.com/johnbalvin/gozillow/utils"
 )
 
-func (input InputData) SearchFirstPage(proxyURL *url.URL) ([]ListResult, error) {
-	results, err := input.search(1, proxyURL)
+func FirstPage(zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, error) {
+	results, err := search(1, zoomValue, neLat, neLong, swLat, swLong, proxyURL)
 	if err != nil {
-		return nil, trace.NewOrAdd(1, "search", "SearchFirstPage", err, "")
+		return nil, trace.NewOrAdd(1, "search", "FirstPage", err, "")
 	}
 	return results, nil
 }
-func (input InputData) SearchAll(proxyURL *url.URL) ([]ListResult, error) {
+func All(zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, error) {
 	var allResults []ListResult
 	for pagination := 1; ; pagination++ {
-		resultsRaw, err := input.search(pagination, proxyURL)
+		resultsRaw, err := search(pagination, zoomValue, neLat, neLong, swLat, swLong, proxyURL)
 		if err != nil {
-			errData := trace.NewOrAdd(1, "search", "SearchAll", err, "")
+			errData := trace.NewOrAdd(1, "search", "All", err, "")
 			log.Println(errData)
 			break
 		}
@@ -38,21 +38,21 @@ func (input InputData) SearchAll(proxyURL *url.URL) ([]ListResult, error) {
 	}
 	return allResults, nil
 }
-func (input InputData) search(pagination int, proxyURL *url.URL) ([]ListResult, error) {
+func search(pagination, zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, error) {
 	searchReq := SearchRequest{
 		SearchQueryState: SearchQueryState{
 			IsMapVisible: false,
 			MapBounds: MapBounds{
-				North: input.Coordinates.Ne.Latitude,
-				East:  input.Coordinates.Ne.Longitud,
-				South: input.Coordinates.Sw.Latitude,
-				West:  input.Coordinates.Sw.Longitud,
+				North: neLat,
+				East:  neLong,
+				South: swLat,
+				West:  swLong,
 			},
 			FilterState:          FilterState{SortSelection: SortSelection{Value: "globalrelevanceex"}},
 			IsEntirePlaceForRent: true,
 			IsRoomForRent:        true,
 			IsListVisible:        true,
-			MapZoom:              input.ZoomValue,
+			MapZoom:              zoomValue,
 			Pagination:           Pagination{CurrentPage: pagination},
 		},
 		Wants:          Wants{Cat1: []string{"listResults", "mapResults"}, Cat2: []string{"total"}},

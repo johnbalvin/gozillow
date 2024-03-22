@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"log"
 	"os"
-
-	"github.com/johnbalvin/gozillow/search"
 )
 
 func Test() {
@@ -13,11 +11,11 @@ func Test() {
 }
 func test1() {
 	coords := CoordinatesInput{
-		Ne: search.CoordinatesValues{
+		Ne: CoordinatesValues{
 			Latitude: 43.389689973008714,
 			Longitud: -72.41662360750962,
 		},
-		Sw: search.CoordinatesValues{
+		Sw: CoordinatesValues{
 			Latitude: 40.07030481778054,
 			Longitud: -78.84362556063462,
 		},
@@ -34,7 +32,7 @@ func test1() {
 /*
 func test2() {
 	propertyURL := ""
-	results, err := GetFromPropertyURL(propertyURL, nil)
+	results, err := GetDetailsFromPropURL(propertyURL, nil)
 	if err != nil {
 		log.Println("err: ", err)
 	}
@@ -43,8 +41,8 @@ func test2() {
 }
 
 func test3() {
-	propertyURL := ""
-	results, err := GetFromPropertyID(propertyURL, nil)
+	propertyID := 45
+	results, err := GetDetailsFromPropID(propertyID, nil)
 	if err != nil {
 		log.Println("err: ", err)
 	}
