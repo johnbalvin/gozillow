@@ -19,6 +19,7 @@ type property struct {
 type PropertyInfo struct {
 	ZipID                                 int64                           `json:"zpid"`
 	Country                               string                          `json:"country"`
+	HdpUrl                                string                          `json:"hdpUrl"`
 	Price                                 int64                           `json:"price"`
 	Currency                              string                          `json:"currency"`
 	Latitude                              float64                         `json:"latitude"`
