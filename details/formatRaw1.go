@@ -60,13 +60,13 @@ type PropertyInfo struct {
 	ListingSubType                        listingSubType                  `json:"listingSubType"`
 	Listing_sub_type                      listingSubType2                 `json:"listing_sub_type"`
 	ForeclosureTypes                      foreclosureTypes                `json:"foreclosureTypes"`
-	ResponsivePhotosOriginalRatio         []responsivePhotosOriginalRatio `json:"responsivePhotosOriginalRatio"`
-	ResponsivePhotos                      []responsivePhotosOriginalRatio `json:"responsivePhotos"`
 	HomeInsights                          []homeInsight                   `json:"homeInsights"`
 	ListedBy                              []listedBy                      `json:"listedBy"`
 	PriceHistory                          []priceHistory                  `json:"priceHistory"`
 	TaxHistory                            []taxHistory                    `json:"taxHistory"`
 	Schools                               []school                        `json:"schools"`
+	ResponsivePhotosOriginalRatio         []responsivePhotosOriginalRatio `json:"responsivePhotosOriginalRatio"`
+	ResponsivePhotos                      []responsivePhotosOriginalRatio `json:"responsivePhotos"`
 }
 type address struct {
 	StreetAddress string `json:"streetAddress"`

@@ -41,7 +41,7 @@ func test2() {
 }
 
 func test3() {
-	propertyID := int64(339897685)
+	propertyID := int64(2056016566)
 	results, err := DetailsFromPropertyID(propertyID, nil)
 	if err != nil {
 		log.Println("err: ", err)
