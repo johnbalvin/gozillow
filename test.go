@@ -7,7 +7,7 @@ import (
 )
 
 func Test() {
-	test1()
+	test3()
 }
 func test1() {
 	coords := CoordinatesInput{
@@ -24,29 +24,28 @@ func test1() {
 	results, err := SearchAll(zomValue, coords, nil)
 	if err != nil {
 		log.Println("err: ", err)
+		return
 	}
 	f, _ := os.Create("./results.json")
 	json.NewEncoder(f).Encode(results)
 }
 
-/*
 func test2() {
-	propertyURL := ""
-	results, err := GetDetailsFromPropURL(propertyURL, nil)
+	propertyURL := "https://www.zillow.com/homedetails/858-Shady-Grove-Ln-Harrah-OK-73045/339897685_zpid/"
+	results, err := DetailsFromPropertyURL(propertyURL, nil)
 	if err != nil {
 		log.Println("err: ", err)
 	}
-	f, _ := os.Create("./results.json")
+	f, _ := os.Create("./details.json")
 	json.NewEncoder(f).Encode(results)
 }
 
 func test3() {
-	propertyID := 45
-	results, err := GetDetailsFromPropID(propertyID, nil)
+	propertyID := int64(339897685)
+	results, err := DetailsFromPropertyID(propertyID, nil)
 	if err != nil {
 		log.Println("err: ", err)
 	}
-	f, _ := os.Create("./results.json")
+	f, _ := os.Create("./details.json")
 	json.NewEncoder(f).Encode(results)
 }
-*/

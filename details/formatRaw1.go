@@ -52,13 +52,13 @@ type PropertyInfo struct {
 	PropertyTypeDimension                 string                          `json:"propertyTypeDimension"`
 	IsZillowOwned                         *bool                           `json:"isZillowOwned"`
 	ForeclosureJudicialType               string                          `json:"foreclosureJudicialType"`
+	AttributionInfo                       attributionInfo                 `json:"attributionInfo"`
 	ResoFacts                             resoFacts                       `json:"resoFacts"`
 	MortgageRates                         mortgageRates                   `json:"mortgageRates"`
 	PostingContact                        postingContact                  `json:"postingContact"`
 	ListingSubType                        listingSubType                  `json:"listingSubType"`
 	Listing_sub_type                      listingSubType2                 `json:"listing_sub_type"`
 	ForeclosureTypes                      foreclosureTypes                `json:"foreclosureTypes"`
-	AttributionInfo                       attributionInfo                 `json:"attributionInfo"`
 	ResponsivePhotosOriginalRatio         []responsivePhotosOriginalRatio `json:"responsivePhotosOriginalRatio"`
 	ResponsivePhotos                      []responsivePhotosOriginalRatio `json:"responsivePhotos"`
 	HomeInsights                          []homeInsight                   `json:"homeInsights"`

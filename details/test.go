@@ -25,7 +25,7 @@ func test0() {
 }
 func test1() {
 	houseURL := "https://www.zillow.com/homedetails/858-Shady-Grove-Ln-Harrah-OK-73045/339897685_zpid/"
-	data, err := GetFromPropertyURL(houseURL, nil)
+	data, err := FromPropertyURL(houseURL, nil)
 	if err != nil {
 		log.Println("err: ", err)
 		return

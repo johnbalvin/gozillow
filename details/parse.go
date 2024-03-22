@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"html"
-	"os"
 
 	"github.com/johnbalvin/gozillow/trace"
 	"github.com/johnbalvin/gozillow/utils"
@@ -35,7 +34,6 @@ func parseBodyDetails(body []byte) (PropertyInfo, error) {
 		return PropertyInfo{}, trace.NewOrAdd(3, "main", "parseBodyDetails", err, "")
 	}
 	mapData := make(map[string]property)
-	os.WriteFile("./meta.json", []byte(data.Props.PageProps.ComponentProps.GdpClientCache), 0644)
 	if err := json.Unmarshal([]byte(data.Props.PageProps.ComponentProps.GdpClientCache), &mapData); err != nil {
 		return PropertyInfo{}, trace.NewOrAdd(4, "main", "parseBodyDetails", err, "")
 	}

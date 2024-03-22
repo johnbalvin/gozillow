@@ -8,17 +8,17 @@ import (
 	"github.com/johnbalvin/gozillow/trace"
 )
 
-func GetDetailsFromPropURL(propertyURL string, proxyURL *url.URL) (PropertyInfo, error) {
-	propertyDetails, err := details.GetFromPropertyURL(propertyURL, proxyURL)
+func DetailsFromPropertyURL(propertyURL string, proxyURL *url.URL) (PropertyInfo, error) {
+	propertyDetails, err := details.FromPropertyURL(propertyURL, proxyURL)
 	if err != nil {
-		return PropertyInfo{}, trace.NewOrAdd(1, "main", "GetDetailsFromPropURL", err, "")
+		return PropertyInfo{}, trace.NewOrAdd(1, "main", "DetailsFromPropertyURL", err, "")
 	}
 	return PropertyInfo(propertyDetails), nil
 }
-func GetDetailsFromPropID(peropertyID int64, proxyURL *url.URL) (PropertyInfo, error) {
-	propertyDetails, err := details.GetFromPropertyID(peropertyID, proxyURL)
+func DetailsFromPropertyID(peropertyID int64, proxyURL *url.URL) (PropertyInfo, error) {
+	propertyDetails, err := details.FromPropertyID(peropertyID, proxyURL)
 	if err != nil {
-		return PropertyInfo{}, trace.NewOrAdd(2, "main", "GetDetailsFromPropID", err, "")
+		return PropertyInfo{}, trace.NewOrAdd(1, "main", "GetDetailsFromPropID", err, "")
 	}
 	return PropertyInfo(propertyDetails), nil
 }
