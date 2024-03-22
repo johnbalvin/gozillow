@@ -114,7 +114,7 @@ type resoFacts struct {
 	Cooling                           []string        `json:"cooling"`
 	CoveredParkingCapacity            int             `json:"coveredParkingCapacity"`
 	CropsIncludedYN                   *bool           `json:"cropsIncludedYN"`
-	CumulativeDaysOnMarket            *int            `json:"cumulativeDaysOnMarket"`
+	CumulativeDaysOnMarket            string          `json:"cumulativeDaysOnMarket"`
 	DevelopmentStatus                 string          `json:"developmentStatus"`
 	DoorFeatures                      []string        `json:"doorFeatures"`
 	Electric                          string          `json:"electric"`
