@@ -95,13 +95,13 @@ type ResoFacts struct {
 	Attic                             string          `json:"attic"`
 	AvailabilityDate                  string          `json:"availabilityDate"`
 	Basement                          string          `json:"basement"`
-	Bathrooms                         int             `json:"bathrooms"`
-	BathroomsFull                     int             `json:"bathroomsFull"`
-	BathroomsHalf                     int             `json:"bathroomsHalf"`
-	BathroomsOneQuarter               *int            `json:"bathroomsOneQuarter"`
-	BathroomsPartial                  *int            `json:"bathroomsPartial"`
+	Bathrooms                         float32         `json:"bathrooms"`
+	BathroomsFull                     float32         `json:"bathroomsFull"`
+	BathroomsHalf                     float32         `json:"bathroomsHalf"`
+	BathroomsOneQuarter               *float32        `json:"bathroomsOneQuarter"`
+	BathroomsPartial                  *float32        `json:"bathroomsPartial"`
 	BathroomsFloat                    float64         `json:"bathroomsFloat"`
-	BathroomsThreeQuarter             *int            `json:"bathroomsThreeQuarter"`
+	BathroomsThreeQuarter             *float32        `json:"bathroomsThreeQuarter"`
 	Bedrooms                          int             `json:"bedrooms"`
 	BodyType                          string          `json:"bodyType"`
 	CanRaiseHorses                    *bool           `json:"canRaiseHorses"`
@@ -173,7 +173,7 @@ type ResoFacts struct {
 	LotFeatures                       []string        `json:"lotFeatures"`
 	LotSize                           string          `json:"lotSize"`
 	LivingQuarters                    []string        `json:"livingQuarters"`
-	MainLevelBathrooms                *int            `json:"mainLevelBathrooms"`
+	MainLevelBathrooms                *float32        `json:"mainLevelBathrooms"`
 	MainLevelBedrooms                 *int            `json:"mainLevelBedrooms"`
 	MarketingType                     string          `json:"marketingType"`
 	MiddleOrJuniorSchool              string          `json:"middleOrJuniorSchool"`
