@@ -80,7 +80,7 @@ type ResoFacts struct {
 	Associations                      []Association   `json:"associations"`
 	AssociationFee                    string          `json:"associationFee"`
 	AssociationAmenities              []string        `json:"associationAmenities"`
-	AssociationFee2                   *float64        `json:"associationFee2"`
+	AssociationFee2                   string          `json:"associationFee2"`
 	AssociationFeeIncludes            []string        `json:"associationFeeIncludes"`
 	AssociationName                   string          `json:"associationName"`
 	AssociationName2                  string          `json:"associationName2"`
