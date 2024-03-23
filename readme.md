@@ -1,4 +1,4 @@
-# Zillow Go Library 
+# Zillow scraper in Go
 
 ## Overview
 This Go library provides functions to retrieve and parse property details from Zillow.
