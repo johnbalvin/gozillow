@@ -24,7 +24,7 @@ type PropertyInfo struct {
 	Currency                              string                          `json:"currency"`
 	Latitude                              float64                         `json:"latitude"`
 	Longitude                             float64                         `json:"longitude"`
-	Address                               address                         `json:"address"`
+	Address                               Address                         `json:"address"`
 	IsListingClaimedByCurrentSignedInUser *bool                           `json:"isListingClaimedByCurrentSignedInUser"`
 	IsCurrentSignedInAgentResponsible     *bool                           `json:"isCurrentSignedInAgentResponsible"`
 	HomeStatus                            string                          `json:"homeStatus"`
@@ -34,7 +34,7 @@ type PropertyInfo struct {
 	RentZestimate                         int                             `json:"rentZestimate"`
 	Zestimate                             int                             `json:"zestimate"`
 	LastSoldPrice                         int                             `json:"lastSoldPrice"`
-	AnnualHomeownersInsurance             int                             `json:"annualHomeownersInsurance"`
+	AnnualHomeownersInsurance             float32                         `json:"annualHomeownersInsurance"`
 	DaysOnZillow                          int                             `json:"daysOnZillow"`
 	FavoriteCount                         int                             `json:"favoriteCount"`
 	MonthlyHoaFee                         float32                         `json:"monthlyHoaFee"`
@@ -53,35 +53,35 @@ type PropertyInfo struct {
 	PropertyTypeDimension                 string                          `json:"propertyTypeDimension"`
 	IsZillowOwned                         *bool                           `json:"isZillowOwned"`
 	ForeclosureJudicialType               string                          `json:"foreclosureJudicialType"`
-	AttributionInfo                       attributionInfo                 `json:"attributionInfo"`
-	ResoFacts                             resoFacts                       `json:"resoFacts"`
-	MortgageRates                         mortgageRates                   `json:"mortgageRates"`
-	PostingContact                        postingContact                  `json:"postingContact"`
-	ListingSubType                        listingSubType                  `json:"listingSubType"`
-	Listing_sub_type                      listingSubType2                 `json:"listing_sub_type"`
-	ForeclosureTypes                      foreclosureTypes                `json:"foreclosureTypes"`
-	HomeInsights                          []homeInsight                   `json:"homeInsights"`
+	AttributionInfo                       AttributionInfo                 `json:"attributionInfo"`
+	ResoFacts                             ResoFacts                       `json:"resoFacts"`
+	MortgageRates                         MortgageRates                   `json:"mortgageRates"`
+	PostingContact                        PostingContact                  `json:"postingContact"`
+	ListingSubType                        ListingSubType                  `json:"listingSubType"`
+	Listing_sub_type                      ListingSubType2                 `json:"listing_sub_type"`
+	ForeclosureTypes                      ForeclosureTypes                `json:"foreclosureTypes"`
+	HomeInsights                          []HomeInsight                   `json:"homeInsights"`
 	ListedBy                              []listedBy                      `json:"listedBy"`
-	PriceHistory                          []priceHistory                  `json:"priceHistory"`
-	TaxHistory                            []taxHistory                    `json:"taxHistory"`
-	Schools                               []school                        `json:"schools"`
-	ResponsivePhotosOriginalRatio         []responsivePhotosOriginalRatio `json:"responsivePhotosOriginalRatio"`
-	ResponsivePhotos                      []responsivePhotosOriginalRatio `json:"responsivePhotos"`
+	PriceHistory                          []PriceHistory                  `json:"priceHistory"`
+	TaxHistory                            []TaxHistory                    `json:"taxHistory"`
+	Schools                               []School                        `json:"schools"`
+	ResponsivePhotosOriginalRatio         []ResponsivePhotosOriginalRatio `json:"responsivePhotosOriginalRatio"`
+	ResponsivePhotos                      []ResponsivePhotosOriginalRatio `json:"responsivePhotos"`
 }
-type address struct {
+type Address struct {
 	StreetAddress string `json:"streetAddress"`
 	City          string `json:"city"`
 	State         string `json:"state"`
 	Zipcode       string `json:"zipcode"`
 }
-type resoFacts struct {
-	AccessibilityFeatures             string          `json:"accessibilityFeatures"`
+type ResoFacts struct {
+	AccessibilityFeatures             []string        `json:"accessibilityFeatures"`
 	AdditionalFeeInfo                 string          `json:"additionalFeeInfo"`
-	Associations                      []interface{}   `json:"associations"`
+	Associations                      []Association   `json:"associations"`
 	AssociationFee                    string          `json:"associationFee"`
 	AssociationAmenities              string          `json:"associationAmenities"`
 	AssociationFee2                   *float64        `json:"associationFee2"`
-	AssociationFeeIncludes            string          `json:"associationFeeIncludes"`
+	AssociationFeeIncludes            []string        `json:"associationFeeIncludes"`
 	AssociationName                   string          `json:"associationName"`
 	AssociationName2                  string          `json:"associationName2"`
 	AssociationPhone                  string          `json:"associationPhone"`
@@ -108,7 +108,7 @@ type resoFacts struct {
 	CarportParkingCapacity            *int            `json:"carportParkingCapacity"`
 	CityRegion                        string          `json:"cityRegion"`
 	CommonWalls                       string          `json:"commonWalls"`
-	CommunityFeatures                 string          `json:"communityFeatures"`
+	CommunityFeatures                 []string        `json:"communityFeatures"`
 	CompensationBasedOn               string          `json:"compensationBasedOn"`
 	Contingency                       string          `json:"contingency"`
 	Cooling                           []string        `json:"cooling"`
@@ -117,13 +117,13 @@ type resoFacts struct {
 	CumulativeDaysOnMarket            string          `json:"cumulativeDaysOnMarket"`
 	DevelopmentStatus                 string          `json:"developmentStatus"`
 	DoorFeatures                      []string        `json:"doorFeatures"`
-	Electric                          string          `json:"electric"`
+	Electric                          []string        `json:"electric"`
 	Elevation                         string          `json:"elevation"`
 	ElevationUnits                    string          `json:"elevationUnits"`
 	EntryLevel                        string          `json:"entryLevel"`
 	EntryLocation                     string          `json:"entryLocation"`
 	Exclusions                        string          `json:"exclusions"`
-	FeesAndDues                       []interface{}   `json:"feesAndDues"`
+	FeesAndDues                       []FeesAndDues   `json:"feesAndDues"`
 	Fencing                           string          `json:"fencing"`
 	FireplaceFeatures                 []string        `json:"fireplaceFeatures"`
 	Fireplaces                        int             `json:"fireplaces"`
@@ -137,7 +137,7 @@ type resoFacts struct {
 	GreenEnergyGeneration             string          `json:"greenEnergyGeneration"`
 	GreenIndoorAirQuality             string          `json:"greenIndoorAirQuality"`
 	GreenSustainability               string          `json:"greenSustainability"`
-	GreenWaterConservation            string          `json:"greenWaterConservation"`
+	GreenWaterConservation            []string        `json:"greenWaterConservation"`
 	HasAssociation                    *bool           `json:"hasAssociation"`
 	HasAttachedGarage                 *bool           `json:"hasAttachedGarage"`
 	HasAttachedProperty               *bool           `json:"hasAttachedProperty"`
@@ -172,7 +172,7 @@ type resoFacts struct {
 	ListingId                         string          `json:"listingId"`
 	LotFeatures                       []string        `json:"lotFeatures"`
 	LotSize                           string          `json:"lotSize"`
-	LivingQuarters                    []interface{}   `json:"livingQuarters"`
+	LivingQuarters                    []string        `json:"livingQuarters"`
 	MainLevelBathrooms                *int            `json:"mainLevelBathrooms"`
 	MainLevelBedrooms                 *int            `json:"mainLevelBedrooms"`
 	MarketingType                     string          `json:"marketingType"`
@@ -183,8 +183,8 @@ type resoFacts struct {
 	OfferReviewDate                   string          `json:"offerReviewDate"`
 	OnMarketDate                      int64           `json:"onMarketDate"`
 	OpenParkingCapacity               *int            `json:"openParkingCapacity"`
-	OtherEquipment                    string          `json:"otherEquipment"`
-	OtherFacts                        []interface{}   `json:"otherFacts"`
+	OtherEquipment                    []string        `json:"otherEquipment"`
+	OtherFacts                        []string        `json:"otherFacts"`
 	OtherParking                      string          `json:"otherParking"`
 	OwnershipType                     string          `json:"ownershipType"`
 	ParkingCapacity                   int             `json:"parkingCapacity"`
@@ -192,12 +192,12 @@ type resoFacts struct {
 	PatioAndPorchFeatures             []string        `json:"patioAndPorchFeatures"`
 	PoolFeatures                      []string        `json:"poolFeatures"`
 	PricePerSquareFoot                int             `json:"pricePerSquareFoot"`
-	RoadSurfaceType                   string          `json:"roadSurfaceType"`
+	RoadSurfaceType                   []string        `json:"roadSurfaceType"`
 	RoofType                          string          `json:"roofType"`
-	Rooms                             []interface{}   `json:"rooms"`
+	Rooms                             []Room          `json:"rooms"`
 	SecurityFeatures                  []string        `json:"securityFeatures"`
 	Sewer                             []string        `json:"sewer"`
-	SpaFeatures                       string          `json:"spaFeatures"`
+	SpaFeatures                       []string        `json:"spaFeatures"`
 	SpecialListingConditions          string          `json:"specialListingConditions"`
 	Stories                           *int            `json:"stories"`
 	StoriesTotal                      *int            `json:"storiesTotal"`
@@ -208,10 +208,10 @@ type resoFacts struct {
 	TransactionBrokerCompensation     string          `json:"transactionBrokerCompensation"`
 	TransactionBrokerCompensationType string          `json:"transactionBrokerCompensationType"`
 	Utilities                         []string        `json:"utilities"`
-	View                              []interface{}   `json:"view"`
+	View                              []string        `json:"view"`
 	WaterSource                       []string        `json:"waterSource"`
 	WaterBodyName                     string          `json:"waterBodyName"`
-	WaterfrontFeatures                string          `json:"waterfrontFeatures"`
+	WaterfrontFeatures                []string        `json:"waterfrontFeatures"`
 	WaterView                         string          `json:"waterView"`
 	WaterViewYN                       *bool           `json:"waterViewYN"`
 	WindowFeatures                    []string        `json:"windowFeatures"`
@@ -236,7 +236,7 @@ type resoFacts struct {
 	HasPetsAllowed                    *bool           `json:"hasPetsAllowed"`
 	HasRentControl                    *bool           `json:"hasRentControl"`
 	HasHomeWarranty                   *bool           `json:"hasHomeWarranty"`
-	Inclusions                        string          `json:"inclusions"`
+	Inclusions                        []string        `json:"inclusions"`
 	IncomeIncludes                    string          `json:"incomeIncludes"`
 	IsNewConstruction                 *bool           `json:"isNewConstruction"`
 	ListingTerms                      string          `json:"listingTerms"`
@@ -252,7 +252,7 @@ type resoFacts struct {
 	PropertySubType                   []string        `json:"propertySubType"`
 	StructureType                     string          `json:"structureType"`
 	Topography                        string          `json:"topography"`
-	Vegetation                        string          `json:"vegetation"`
+	Vegetation                        []string        `json:"vegetation"`
 	WoodedArea                        string          `json:"woodedArea"`
 	YearBuiltEffective                *int            `json:"yearBuiltEffective"`
 	VirtualTour                       string          `json:"virtualTour"`
@@ -265,7 +265,7 @@ type AtAGlanceFact struct {
 	FactLabel string `json:"factLabel"`
 	FactValue string `json:"factValue"` // Using pointer to handle null values
 }
-type attributionInfo struct {
+type AttributionInfo struct {
 	ListingAgreement             string          `json:"listingAgreement"`
 	MlsName                      string          `json:"mlsName"`
 	AgentEmail                   string          `json:"agentEmail"`
@@ -283,8 +283,8 @@ type attributionInfo struct {
 	CoAgentNumber                string          `json:"coAgentNumber"`
 	LastChecked                  string          `json:"lastChecked"`
 	LastUpdated                  string          `json:"lastUpdated"`
-	ListingOffices               []listingOffice `json:"listingOffices"`
-	ListingAgents                []listingAgent  `json:"listingAgents"`
+	ListingOffices               []ListingOffice `json:"listingOffices"`
+	ListingAgents                []ListingAgent  `json:"listingAgents"`
 	MlsDisclaimer                string          `json:"mlsDisclaimer"`
 	MlsId                        string          `json:"mlsId"`
 	ProviderLogo                 string          `json:"providerLogo"`
@@ -294,17 +294,17 @@ type attributionInfo struct {
 	InfoString16                 string          `json:"infoString16"`
 	TrueStatus                   string          `json:"trueStatus"`
 }
-type listingOffice struct {
+type ListingOffice struct {
 	AssociatedOfficeType string `json:"associatedOfficeType"`
 	OfficeName           string `json:"officeName"`
 }
 
-type listingAgent struct {
+type ListingAgent struct {
 	AssociatedAgentType string `json:"associatedAgentType"`
 	MemberFullName      string `json:"memberFullName"`
 	MemberStateLicense  string `json:"memberStateLicense"`
 }
-type school struct {
+type School struct {
 	Distance           float32 `json:"distance"`
 	Name               string  `json:"name"`
 	Rating             int     `json:"rating"`
@@ -318,14 +318,14 @@ type school struct {
 	TotalCount         string  `json:"totalCount"`
 	IsAssigned         string  `json:"isAssigned"`
 }
-type taxHistory struct {
+type TaxHistory struct {
 	Time              int64   `json:"time"`
 	TaxPaid           float32 `json:"taxPaid"`
 	TaxIncreaseRate   float32 `json:"taxIncreaseRate"`
 	Value             float32 `json:"value"`
 	ValueIncreaseRate float32 `json:"valueIncreaseRate"`
 }
-type priceHistory struct {
+type PriceHistory struct {
 	Date               string  `json:"date"`
 	Time               int64   `json:"time"`
 	Price              float32 `json:"price"`
@@ -333,24 +333,32 @@ type priceHistory struct {
 	PriceChangeRate    float32 `json:"priceChangeRate"`
 	Event              string  `json:"event"`
 	Source             string  `json:"source"`
-	BuyerAgent         string  `json:"buyerAgent"`
-	SellerAgent        string  `json:"sellerAgent"`
+	BuyerAgent         Agent   `json:"buyerAgent"`
+	SellerAgent        Agent   `json:"sellerAgent"`
+}
+type Agent struct {
+	ProfileUrl string `json:"profileUrl"`
+	Name       string `json:"name"`
+	Photo      Photo  `json:"photo"`
+}
+type Photo struct {
+	URL string `json:"url"`
 }
 type listedBy struct {
 	ID       string    `json:"id"`
-	Elements []element `json:"elements"`
+	Elements []Element `json:"elements"`
 }
-type element struct {
+type Element struct {
 	ID   string `json:"id"`
 	Text string `json:"text"`
 }
-type homeInsight struct {
-	HomeInsights []homeInsightValues `json:"insights"`
+type HomeInsight struct {
+	HomeInsights []HomeInsightValues `json:"insights"`
 }
-type homeInsightValues struct {
+type HomeInsightValues struct {
 	Phrases []string `json:"phrases"`
 }
-type foreclosureTypes struct {
+type ForeclosureTypes struct {
 	IsBankOwned         *bool `json:"isBankOwned"`
 	IsForeclosedNFS     *bool `json:"isForeclosedNFS"`
 	IsPreforeclosure    *bool `json:"isPreforeclosure"`
@@ -360,7 +368,7 @@ type foreclosureTypes struct {
 	WasREO              *bool `json:"wasREO"`
 	WasDefault          *bool `json:"wasDefault"`
 }
-type listingSubType struct {
+type ListingSubType struct {
 	IsFSBA        *bool `json:"isFSBA"`
 	IsFSBO        *bool `json:"isFSBO"`
 	IsPending     *bool `json:"isPending"`
@@ -371,7 +379,7 @@ type listingSubType struct {
 	IsOpenHouse   *bool `json:"isOpenHouse"`
 	IsComingSoon  *bool `json:"isComingSoon"`
 }
-type listingSubType2 struct {
+type ListingSubType2 struct {
 	IsFSBA        *bool `json:"is_FSBA"`
 	IsFSBO        *bool `json:"is_FSBO"`
 	IsPending     *bool `json:"is_pending"`
@@ -382,21 +390,51 @@ type listingSubType2 struct {
 	IsOpenHouse   *bool `json:"is_openHouse"`
 	IsComingSoon  *bool `json:"is_comingSoon"`
 }
-type postingContact struct {
+type PostingContact struct {
 	Name  string `json:"name"`
 	Photo string `json:"photo"`
 }
-type responsivePhotosOriginalRatio struct {
-	MixedSources mixedSources `json:"mixedSources"`
+type ResponsivePhotosOriginalRatio struct {
+	MixedSources MixedSources `json:"mixedSources"`
 }
-type mixedSources struct {
-	Webp []img `json:"webp"`
-	JPEG []img `json:"jpeg"`
+type MixedSources struct {
+	Webp []Img `json:"webp"`
+	JPEG []Img `json:"jpeg"`
 }
-type img struct {
+type Img struct {
 	URL   string `json:"url"`
 	Width int    `json:"width"`
 }
-type mortgageRates struct {
+type MortgageRates struct {
 	ThirtyYearFixedRate float32 `json:"thirtyYearFixedRate"`
+}
+type FeesAndDues struct {
+	Type  string `json:"type"`
+	Fee   string `json:"fee"`
+	Name  string `json:"name"`
+	Phone string `json:"phone"`
+}
+type Room struct {
+	Aea                   string `json:"area"`
+	Description           string `json:"description"`
+	Dimensions            string `json:"dimensions"`
+	Level                 string `json:"level"`
+	Features              string `json:"features"`
+	RoomArea              string `json:"roomArea"`
+	RoomAreaSource        string `json:"roomAreaSource"`
+	RoomAreaUnits         string `json:"roomAreaUnits"`
+	RoomDescription       string `json:"roomDescription"`
+	RoomDimensions        string `json:"roomDimensions"`
+	RoomFeatures          string `json:"roomFeatures"`
+	RoomLength            string `json:"roomLength"`
+	RoomLengthWidthSource string `json:"roomLengthWidthSource"`
+	RoomLengthWidthUnits  string `json:"roomLengthWidthUnits"`
+	RoomLevel             string `json:"roomLevel"`
+	RoomType              string `json:"roomType"`
+	RoomWidth             string `json:"roomWidth"`
+}
+type Association struct {
+	FeeFrequency string `json:"feeFrequency"`
+	Name         string `json:"name"`
+	Phone        string `json:"phone"`
 }
