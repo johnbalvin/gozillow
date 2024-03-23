@@ -29,7 +29,7 @@ type PropertyInfo struct {
 	IsCurrentSignedInAgentResponsible     *bool                           `json:"isCurrentSignedInAgentResponsible"`
 	HomeStatus                            string                          `json:"homeStatus"`
 	Bedrooms                              int                             `json:"bedrooms"`
-	Bathrooms                             int                             `json:"bathrooms"`
+	Bathrooms                             float32                         `json:"bathrooms"`
 	YearBuilt                             int                             `json:"yearBuilt"`
 	RentZestimate                         int                             `json:"rentZestimate"`
 	Zestimate                             int                             `json:"zestimate"`
