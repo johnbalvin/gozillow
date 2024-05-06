@@ -1,35 +1,61 @@
 package search
 
 type SearchRequest struct {
-	SearchQueryState SearchQueryState `json:"searchQueryState"`
-	Wants            Wants            `json:"wants"`
-	RequestId        int              `json:"requestId"`
 	IsDebugRequest   bool             `json:"isDebugRequest"`
+	RequestId        int              `json:"requestId"`
+	Wants            Wants            `json:"wants"`
+	SearchQueryState SearchQueryState `json:"searchQueryState"`
 }
 
 type SearchQueryState struct {
-	IsMapVisible         bool        `json:"isMapVisible"`
-	MapBounds            MapBounds   `json:"mapBounds"`
-	FilterState          FilterState `json:"filterState"`
-	IsEntirePlaceForRent bool        `json:"isEntirePlaceForRent"`
-	IsRoomForRent        bool        `json:"isRoomForRent"`
-	IsListVisible        bool        `json:"isListVisible"`
-	MapZoom              int         `json:"mapZoom"`
-	Pagination           Pagination  `json:"pagination"`
+	IsMapVisible  bool       `json:"isMapVisible"`
+	IsListVisible bool       `json:"isListVisible"`
+	MapZoom       int        `json:"mapZoom"`
+	MapBounds     MapBounds  `json:"mapBounds"`
+	FilterState   any        `json:"filterState"`
+	Pagination    Pagination `json:"pagination"`
 }
 
 type MapBounds struct {
-	West  float64 `json:"west"`
 	East  float64 `json:"east"`
-	South float64 `json:"south"`
 	North float64 `json:"north"`
+	South float64 `json:"south"`
+	West  float64 `json:"west"`
 }
 
-type FilterState struct {
-	SortSelection SortSelection `json:"sortSelection"`
+type FilterInputSale struct {
+	SortSelection JustValueString `json:"sortSelection"`
+	IsAllHomes    JustValueBool   `json:"isAllHomes"`
 }
 
-type SortSelection struct {
+type FilterInputRent struct {
+	SortSelection        JustValueString `json:"sortSelection"`
+	IsNewConstruction    JustValueBool   `json:"isNewConstruction"`
+	IsForSaleForeclosure JustValueBool   `json:"isForSaleForeclosure"`
+	IsForSaleByOwner     JustValueBool   `json:"isForSaleByOwner"`
+	IsForSaleByAgent     JustValueBool   `json:"isForSaleByAgent"`
+	IsForRent            JustValueBool   `json:"isForRent"`
+	IsComingSoon         JustValueBool   `json:"isComingSoon"`
+	IsAuction            JustValueBool   `json:"isAuction"`
+	IsAllHomes           JustValueBool   `json:"isAllHomes"`
+}
+
+type FilterInputSold struct {
+	SortSelection        JustValueString `json:"sortSelection"`
+	IsNewConstruction    JustValueBool   `json:"isNewConstruction"`
+	IsForSaleForeclosure JustValueBool   `json:"isForSaleForeclosure"`
+	IsForSaleByOwner     JustValueBool   `json:"isForSaleByOwner"`
+	IsForSaleByAgent     JustValueBool   `json:"isForSaleByAgent"`
+	IsComingSoon         JustValueBool   `json:"isComingSoon"`
+	IsAuction            JustValueBool   `json:"isAuction"`
+	IsAllHomes           JustValueBool   `json:"isAllHomes"`
+	IsRecentlySold       JustValueBool   `json:"isRecentlySold"`
+}
+type JustValueBool struct {
+	Value bool `json:"value"`
+}
+
+type JustValueString struct {
 	Value string `json:"value"`
 }
 

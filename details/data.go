@@ -6,14 +6,12 @@ import (
 	"net/http"
 	"net/url"
 	"time"
-
-	"github.com/johnbalvin/gozillow/trace"
 )
 
 func fromPropertyURL(roomURL string, proxyURL *url.URL) (PropertyInfo, error) {
 	req, err := http.NewRequest("GET", roomURL, nil)
 	if err != nil {
-		return PropertyInfo{}, trace.NewOrAdd(1, "details", "fromPropertyURL", err, "")
+		return PropertyInfo{}, err
 	}
 	req.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
 	req.Header.Add("Accept-Language", "en")
@@ -44,7 +42,7 @@ func fromPropertyURL(roomURL string, proxyURL *url.URL) (PropertyInfo, error) {
 	}
 	resp, err := client.Do(req)
 	if err != nil {
-		return PropertyInfo{}, trace.NewOrAdd(2, "details", "fromPropertyURL", err, "")
+		return PropertyInfo{}, err
 	}
 	if resp.StatusCode == 301 {
 		redirectPath := resp.Header.Get("location")
@@ -52,24 +50,24 @@ func fromPropertyURL(roomURL string, proxyURL *url.URL) (PropertyInfo, error) {
 		req.URL.RawQuery = ""
 		resp, err = client.Do(req)
 		if err != nil {
-			return PropertyInfo{}, trace.NewOrAdd(3, "details", "fromPropertyURL", err, "")
+			return PropertyInfo{}, err
 		}
 		if resp.StatusCode != 200 {
-			errData := fmt.Sprintf("status: %d headers: %+v", resp.StatusCode, resp.Header)
-			return PropertyInfo{}, trace.NewOrAdd(4, "details", "fromPropertyURL", trace.ErrStatusCode, errData)
+			errData := fmt.Errorf("status: %d headers: %+v", resp.StatusCode, resp.Header)
+			return PropertyInfo{}, errData
 		}
 	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return PropertyInfo{}, trace.NewOrAdd(5, "details", "fromPropertyURL", err, "")
+		return PropertyInfo{}, err
 	}
 	if resp.StatusCode != 200 {
-		errData := fmt.Sprintf("status: %d headers: %+v", resp.StatusCode, resp.Header)
-		return PropertyInfo{}, trace.NewOrAdd(6, "details", "fromPropertyURL", trace.ErrStatusCode, errData)
+		errData := fmt.Errorf("status: %d headers: %+v", resp.StatusCode, resp.Header)
+		return PropertyInfo{}, errData
 	}
 	data, err := ParseBodyDetails(body)
 	if err != nil {
-		return PropertyInfo{}, trace.NewOrAdd(7, "details", "fromPropertyURL", err, "")
+		return PropertyInfo{}, err
 	}
 	return data, nil
 }

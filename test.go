@@ -2,34 +2,36 @@ package gozillow
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
-	"strconv"
 )
 
 func Test() {
-	test4()
+	test1()
 }
 func test1() {
 	coords := CoordinatesInput{
 		Ne: CoordinatesValues{
-			Latitude: 43.389689973008714,
-			Longitud: -72.41662360750962,
+			Latitude: 44.80185651702412,
+			Longitud: -96.70265550613955,
 		},
 		Sw: CoordinatesValues{
-			Latitude: 40.07030481778054,
-			Longitud: -78.84362556063462,
+			Latitude: 38.14378460775949,
+			Longitud: -109.55665941238955,
 		},
 	}
-	zomValue := 3
-	results, err := SearchAll(zomValue, coords, nil)
+	zomValue := 7
+	pagination := 1
+	listResults, mapResults, err := SearchSold(pagination, zomValue, coords, nil)
 	if err != nil {
 		log.Println("err: ", err)
 		return
 	}
-	f, _ := os.Create("./results.json")
-	json.NewEncoder(f).Encode(results)
+	log.Println("len: ", len(listResults), len(mapResults))
+	f, _ := os.Create("./listResults.json")
+	json.NewEncoder(f).Encode(listResults)
+	f2, _ := os.Create("./mapResult.json")
+	json.NewEncoder(f2).Encode(mapResults)
 }
 
 func test2() {
@@ -42,6 +44,7 @@ func test2() {
 	json.NewEncoder(f).Encode(results)
 }
 
+/*
 func test3() {
 	propertyID := int64(2056016566)
 	results, err := DetailsFromPropertyID(propertyID, nil)
@@ -64,13 +67,13 @@ func test4() {
 		},
 	}
 	zoomValue := 2
-	results, err := SearchFirstPage(zoomValue, coords, nil)
+	listResults, mapResults, err := SearchForRent(1, zoomValue, coords, nil)
 	if err != nil {
 		log.Println("searchHanlder 6 err: ", err)
 		return
 	}
 
-	rawJSON, _ := json.MarshalIndent(results, "", "  ")
+	rawJSON, _ := json.MarshalIndent(listResults, "", "  ")
 	if err := os.WriteFile("./details.json", rawJSON, 0644); err != nil {
 		log.Println(err)
 		return
@@ -90,4 +93,4 @@ func test4() {
 		}
 		log.Printf("Progress: %d/%d\n", i+1, len(results))
 	}
-}
+}*/

@@ -8,65 +8,93 @@ type cat1 struct {
 }
 type searchResults struct {
 	ListResults []ListResult `json:"listResults"`
+	MapResults  []MapResult  `json:"mapResults"`
 }
 type ListResult struct {
-	Zpid                 string  `json:"zpid"`
-	ID                   string  `json:"id"`
-	ImgSrc               string  `json:"imgSrc"`
-	Address              string  `json:"address"`
-	AddressStreet        string  `json:"addressStreet"`
-	AddressCity          string  `json:"addressCity"`
-	AddressState         string  `json:"addressState"`
-	AddressZipcode       string  `json:"addressZipcode"`
-	Area                 int64   `json:"area"`
-	IsUndisclosedAddress bool    `json:"isUndisclosedAddress"`
-	StatusType           string  `json:"statusType"`
-	DetailUrl            string  `json:"detailUrl"`
-	Price                string  `json:"price"`
-	CountryCurrency      string  `json:"countryCurrency"`
-	UnformattedPrice     int     `json:"unformattedPrice"`
-	LatLong              LatLong `json:"latLong"`
-	IsZillowOwned        bool    `json:"isZillowOwned"`
-	IsUserClaimingOwner  bool    `json:"isUserClaimingOwner"`
-	BrokerName           string  `json:"brokerName"`
-	IsUserConfirmedClaim bool    `json:"isUserConfirmedClaim"`
-	Relaxed              bool    `json:"relaxed"`
-	HdpData              HdpData `json:"hdpData"`
+	Zpid                 string          `json:"zpid"`
+	ID                   string          `json:"id"`
+	HasImage             bool            `json:"hasImage"`
+	AvailabilityCount    int             `json:"availabilityCount"`
+	ImgSrc               string          `json:"imgSrc"`
+	StatusText           string          `json:"statusText"`
+	Address              string          `json:"address"`
+	AddressStreet        string          `json:"addressStreet"`
+	AddressCity          string          `json:"addressCity"`
+	AddressState         string          `json:"addressState"`
+	AddressZipcode       string          `json:"addressZipcode"`
+	Area                 int64           `json:"area"`
+	IsUndisclosedAddress bool            `json:"isUndisclosedAddress"`
+	StatusType           string          `json:"statusType"`
+	DetailUrl            string          `json:"detailUrl"`
+	Price                string          `json:"price"`
+	CountryCurrency      string          `json:"countryCurrency"`
+	UnformattedPrice     int             `json:"unformattedPrice"`
+	LatLong              LatLong         `json:"latLong"`
+	BuildingName         string          `json:"buildingName"`
+	IsZillowOwned        bool            `json:"isZillowOwned"`
+	IsUserClaimingOwner  bool            `json:"isUserClaimingOwner"`
+	BrokerName           string          `json:"brokerName"`
+	IsUserConfirmedClaim bool            `json:"isUserConfirmedClaim"`
+	Relaxed              bool            `json:"relaxed"`
+	HdpData              HDPData         `json:"hdpData"`
+	Units                []Unit          `json:"units"`
+	LotId                int64           `json:"lotId"`
+	CarouselPhotos       []CarouselPhoto `json:"carouselPhotos"`
+}
+type Unit struct {
+	Price   string `json:"price"`
+	Beds    string `json:"beds"`
+	ForRent bool   `json:"roomForRent"`
 }
 type LatLong struct {
 	Latitude  float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
 }
-type HdpData struct {
-	HomeInfo HomeInfo `json:"homeInfo"`
-}
-type HomeInfo struct {
-	Country            string           `json:"country"`
-	PriceReduction     string           `json:"priceReduction"`
-	PriceChange        float32          `json:"priceChange"`
-	TaxAssessedValue   float32          `json:"taxAssessedValue"`
-	Bathrooms          float32          `json:"bathrooms"`
-	Bedrooms           float32          `json:"bedrooms"`
-	LivingArea         float32          `json:"livingArea"`
-	HomeStatusForHDP   string           `json:"homeStatusForHDP"`
-	PriceForHDP        float32          `json:"priceForHDP"`
-	HomeType           string           `json:"homeType"`
-	DaysOnZillow       int              `json:"daysOnZillow"`
-	IsNonOwnerOccupied bool             `json:"isNonOwnerOccupied"`
-	IsShowcaseListing  bool             `json:"isShowcaseListing"`
-	IsPremierBuilder   bool             `json:"isPremierBuilder"`
-	LotAreaValue       float32          `json:"lotAreaValue"`
-	LotAreaUnit        string           `json:"lotAreaUnit"`
-	Zestimate          int64            `json:"zestimate"`
-	RentZestimate      int64            `json:"rentZestimate"`
-	Listing_sub_type   Listing_sub_type `json:"listing_sub_type"`
-	CarouselPhotos     []CarouselPhoto  `json:"carouselPhotos"`
-}
 type CarouselPhoto struct {
 	URL string `json:"url"`
 }
 
-type Listing_sub_type struct {
+type HDPData struct {
+	HomeInfo HomeInfo `json:"homeInfo"`
+}
+type HomeInfo struct {
+	Zpid                    int64          `json:"zpid"`
+	PriceReduction          string         `json:"priceReduction"`
+	PriceChange             float32        `json:"priceChange"`
+	StreetAddress           string         `json:"streetAddress"`
+	Zipcode                 string         `json:"zipcode"`
+	City                    string         `json:"city"`
+	State                   string         `json:"state"`
+	Latitude                float64        `json:"latitude"`
+	Longitude               float64        `json:"longitude"`
+	Price                   float32        `json:"price"`
+	Bathrooms               float32        `json:"bathrooms"`
+	Bedrooms                float32        `json:"bedrooms"`
+	LivingArea              float32        `json:"livingArea"`
+	HomeType                string         `json:"homeType"`
+	HomeStatus              string         `json:"homeStatus"`
+	DaysOnZillow            int            `json:"daysOnZillow"`
+	IsFeatured              bool           `json:"isFeatured"`
+	ShouldHighlight         bool           `json:"shouldHighlight"`
+	Zestimate               int            `json:"zestimate"`
+	TaxAssessedValue        float64        `json:"taxAssessedValue"`
+	RentZestimate           int            `json:"rentZestimate"`
+	ListingSubType          ListingSubType `json:"listing_sub_type"`
+	IsUnmappable            bool           `json:"isUnmappable"`
+	IsPreforeclosureAuction bool           `json:"isPreforeclosureAuction"`
+	HomeStatusForHDP        string         `json:"homeStatusForHDP"`
+	PriceForHDP             float32        `json:"priceForHDP"`
+	TimeOnZillow            int64          `json:"timeOnZillow"`
+	IsNonOwnerOccupied      bool           `json:"isNonOwnerOccupied"`
+	IsPremierBuilder        bool           `json:"isPremierBuilder"`
+	IsZillowOwned           bool           `json:"isZillowOwned"`
+	Currency                string         `json:"currency"`
+	Country                 string         `json:"country"`
+	LotAreaValue            float32        `json:"lotAreaValue"`
+	LotAreaUnit             string         `json:"lotAreaUnit"`
+	IsShowcaseListing       bool           `json:"isShowcaseListing"`
+}
+type ListingSubType struct {
 	IsFSBA        *bool `json:"is_FSBA"`
 	IsFSBO        *bool `json:"is_FSBO"`
 	IsPending     *bool `json:"is_pending"`
@@ -76,4 +104,51 @@ type Listing_sub_type struct {
 	IsForAuction  *bool `json:"is_forAuction"`
 	IsOpenHouse   *bool `json:"is_openHouse"`
 	IsComingSoon  *bool `json:"is_comingSoon"`
+}
+
+type MapResult struct {
+	Zpid                        string  `json:"zpid"`
+	Plid                        string  `json:"plid"`
+	BuildingName                string  `json:"buildingName"`
+	BuildingId                  string  `json:"buildingId"`
+	IsBuilding                  bool    `json:"isBuilding"`
+	CanSaveBuilding             bool    `json:"canSaveBuilding"`
+	RawHomeStatusCd             string  `json:"rawHomeStatusCd"`
+	RentalMarketingSubType      string  `json:"rentalMarketingSubType"`
+	MarketingStatusSimplifiedCd string  `json:"marketingStatusSimplifiedCd"`
+	ImgSrc                      string  `json:"imgSrc"`
+	LotId                       int64   `json:"lotId"`
+	UnitCount                   int64   `json:"unitCount"`
+	MinBeds                     float32 `json:"minBeds"`
+	MinBaths                    float32 `json:"minBaths"`
+	MinArea                     float32 `json:"minArea"`
+	HasImage                    bool    `json:"hasImage"`
+	DetailUrl                   string  `json:"detailUrl"`
+	StatusType                  string  `json:"statusType"`
+	StatusText                  string  `json:"statusText"`
+	Price                       string  `json:"price"`
+	PriceLabel                  string  `json:"priceLabel"`
+	Address                     string  `json:"address"`
+	Beds                        int     `json:"beds"`
+	Baths                       float64 `json:"baths"`
+	Area                        int     `json:"area"`
+	LatLong                     LatLong `json:"latLong"`
+	HDPData                     HDPData `json:"hdpData"`
+	IsUserClaimingOwner         bool    `json:"isUserClaimingOwner"`
+	IsUserConfirmedClaim        bool    `json:"isUserConfirmedClaim"`
+	Pgapt                       string  `json:"pgapt"`
+	Sgapt                       string  `json:"sgapt"`
+	ShouldShowZestimateAsPrice  bool    `json:"shouldShowZestimateAsPrice"`
+	Has3DModel                  bool    `json:"has3DModel"`
+	HasVideo                    bool    `json:"hasVideo"`
+	IsHomeRec                   bool    `json:"isHomeRec"`
+	HasAdditionalAttributions   bool    `json:"hasAdditionalAttributions"`
+	IsFeaturedListing           bool    `json:"isFeaturedListing"`
+	IsShowcaseListing           bool    `json:"isShowcaseListing"`
+	ListingType                 string  `json:"listingType"`
+	IsFavorite                  bool    `json:"isFavorite"`
+	Visited                     bool    `json:"visited"`
+	Info3String                 string  `json:"info3String"`
+	BrokerName                  string  `json:"brokerName"`
+	TimeOnZillow                int64   `json:"timeOnZillow"`
 }

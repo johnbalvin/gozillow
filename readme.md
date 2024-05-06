@@ -6,7 +6,6 @@ This Go library provides functions to retrieve and parse property details from Z
 ## Features
 - Fetches property details from Zillow using a property URL or ID.
 - Parses the retrieved HTML content to extract structured property information.
-- Represents property data in a well-defined Go struct `PropertyInfo`.
 - Implemented in Go for performance and efficiency.
 - Easy to integrate with existing Go projects.
 
@@ -49,16 +48,19 @@ go get -u github.com/johnbalvin/gozillow
             },
         }
         zoomValue := 2
-    
-        results, err := gozillow.SearchFirstPage(zoomValue, coords, nil)
+        //pagination is for the list that you see at the right when searching, it's not required you iterate over all the pages because
+        //zillow sends the whole data on the map results at once on the first page
+        //however the maximum result zillow returns is 500, so if the full result from the map is 500 you probably need to increase the zoom value
+        //or apply other filter to get all the results, pagination won't help
+        pagination := 1
+        _, fullResult, err := gozillow.SearchSold(pagination, zoomValue, coords, nil)
         if err != nil {
             log.Println(err)
             return
         }
-    
-        rawJSON, _ := json.MarshalIndent(results, "", "  ")
+        rawJSON, _ := json.MarshalIndent(fullResult, "", "  ")
         fmt.Printf("%s", rawJSON) //in case you don't have write permisions
-        if err := os.WriteFile("./searchResult.json", rawJSON, 06444); err != nil {
+        if err := os.WriteFile("./fullResult.json", rawJSON, 06444); err != nil {
             log.Println(err)
             return
         }
@@ -90,16 +92,19 @@ go get -u github.com/johnbalvin/gozillow
             },
         }
         zoomValue := 2
-    
-        results, err := gozillow.SearchAll(zoomValue, coords, nil)
+        //pagination is for the list that you see at the right when searching, it's not required you iterate over all the pages because
+        //zillow sends the whole data on the map results at once on the first page
+        //however the maximum result zillow returns is 500, so if the full result from the map is 500 you probably need to increase the zoom value
+        //or apply other filter to get all the results, pagination won't help
+        pagination := 1
+        _, fullResult, err := gozillow.SearchForRent(pagination, zoomValue, coords, nil)
         if err != nil {
             log.Println(err)
             return
         }
-    
-        rawJSON, _ := json.MarshalIndent(results, "", "  ")
+        rawJSON, _ := json.MarshalIndent(fullResult, "", "  ")
         fmt.Printf("%s", rawJSON) //in case you don't have write permisions
-        if err := os.WriteFile("./searchResult.json", rawJSON, 06444); err != nil {
+        if err := os.WriteFile("./fullResult.json", rawJSON, 06444); err != nil {
             log.Println(err)
             return
         }
@@ -114,7 +119,6 @@ go get -u github.com/johnbalvin/gozillow
         "fmt"
         "log"
         "os"
-    
         "github.com/johnbalvin/gozillow"
     )
     
@@ -133,21 +137,19 @@ go get -u github.com/johnbalvin/gozillow
     
         // Zoom level (1-20) for search granularity
         zoomValue := 2
-    
+        //pagination is for the list that you see at the right when searching, it's not required you iterate over all the pages because
+        //zillow sends the whole data on the map results at once on the first page
+        //however the maximum result zillow returns is 500, so if the full result from the map is 500 you probably need to increase the zoom value
+        //or apply other filter to get all the results, pagination won't help
+        pagination := 1
         // Search for properties within the specified area and zoom level
-        results, err := gozillow.SearchAll(zoomValue, coords, nil) // Optional proxy can be passed here
+        _, fullResult, err := gozillow.SearchForSale(pagination, zoomValue, coords, nil) // Optional proxy can be passed here
         if err != nil {
             log.Println("Error:", err)
             return
         }
-    
-        // Process search results
-        rawJSON, _ := json.MarshalIndent(results, "", "  ")
-    
-        // Option 1: Print JSON to console
+        rawJSON, _ := json.MarshalIndent(fullResult, "", "  ")
         fmt.Printf("%s\n", rawJSON)
-    
-        // Option 2: Write JSON to file (adjust permissions as needed)
         if err := os.WriteFile("./searchResultAll.json", rawJSON, 0644); err != nil {
             log.Println("Error writing file:", err)
         }

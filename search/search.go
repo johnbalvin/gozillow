@@ -5,55 +5,64 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"time"
 
-	"github.com/johnbalvin/gozillow/trace"
 	"github.com/johnbalvin/gozillow/utils"
 )
 
-func FirstPage(zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, error) {
-	results, err := search(1, zoomValue, neLat, neLong, swLat, swLong, proxyURL)
+func ForSale(pagination int, zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, []MapResult, error) {
+	rent := FilterInputSale{
+		SortSelection: JustValueString{Value: "globalrelevanceex"},
+		IsAllHomes:    JustValueBool{Value: true},
+	}
+	results, mapResults, err := search(pagination, zoomValue, neLat, neLong, swLat, swLong, rent, proxyURL)
 	if err != nil {
-		return nil, trace.NewOrAdd(1, "search", "FirstPage", err, "")
+		return nil, nil, err
 	}
-	return results, nil
+	return results, mapResults, nil
 }
-func All(zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, error) {
-	var allResults []ListResult
-	for pagination := 1; ; pagination++ {
-		resultsRaw, err := search(pagination, zoomValue, neLat, neLong, swLat, swLong, proxyURL)
-		if err != nil {
-			errData := trace.NewOrAdd(1, "search", "All", err, "")
-			log.Println(errData)
-			break
-		}
-		fmt.Printf("pagination: %d Results len: %d\n", pagination, len(resultsRaw))
-		allResults = append(allResults, resultsRaw...)
-		if len(resultsRaw) == 0 {
-			break
-		}
+func ForRent(pagination int, zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, []MapResult, error) {
+	rent := FilterInputRent{
+		SortSelection: JustValueString{Value: "priorityscore"},
+		IsAllHomes:    JustValueBool{Value: true},
+		IsForRent:     JustValueBool{Value: true},
 	}
-	return allResults, nil
+	results, mapResults, err := search(pagination, zoomValue, neLat, neLong, swLat, swLong, rent, proxyURL)
+	if err != nil {
+		return nil, nil, err
+	}
+	return results, mapResults, nil
 }
-func search(pagination, zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, error) {
+
+func Sold(pagination int, zoomValue int, neLat, neLong, swLat, swLong float64, proxyURL *url.URL) ([]ListResult, []MapResult, error) {
+	rent := FilterInputSold{
+		SortSelection:  JustValueString{Value: "globalrelevanceex"},
+		IsAllHomes:     JustValueBool{Value: true},
+		IsRecentlySold: JustValueBool{Value: true},
+	}
+	results, mapResults, err := search(pagination, zoomValue, neLat, neLong, swLat, swLong, rent, proxyURL)
+	if err != nil {
+		return nil, nil, err
+	}
+	return results, mapResults, nil
+}
+
+func search[filtersTypes FilterInputSale | FilterInputRent | FilterInputSold](pagination, zoomValue int, neLat, neLong, swLat, swLong float64, filterState filtersTypes, proxyURL *url.URL) ([]ListResult, []MapResult, error) {
 	searchReq := SearchRequest{
 		SearchQueryState: SearchQueryState{
-			IsMapVisible: false,
+			IsListVisible: true,
+			IsMapVisible:  true,
 			MapBounds: MapBounds{
 				North: neLat,
 				East:  neLong,
 				South: swLat,
 				West:  swLong,
 			},
-			FilterState:          FilterState{SortSelection: SortSelection{Value: "globalrelevanceex"}},
-			IsEntirePlaceForRent: true,
-			IsRoomForRent:        true,
-			IsListVisible:        true,
-			MapZoom:              zoomValue,
-			Pagination:           Pagination{CurrentPage: pagination},
+			FilterState: filterState,
+			MapZoom:     zoomValue,
+			Pagination:  Pagination{CurrentPage: pagination},
 		},
 		Wants:          Wants{Cat1: []string{"listResults", "mapResults"}, Cat2: []string{"total"}},
 		RequestId:      10,
@@ -61,11 +70,11 @@ func search(pagination, zoomValue int, neLat, neLong, swLat, swLong float64, pro
 	}
 	rawData, err := json.Marshal(searchReq)
 	if err != nil {
-		return nil, trace.NewOrAdd(2, "search", "search", err, "")
+		return nil, nil, err
 	}
 	req, err := http.NewRequest("PUT", ep, bytes.NewReader(rawData))
 	if err != nil {
-		return nil, trace.NewOrAdd(3, "search", "search", err, "")
+		return nil, nil, err
 	}
 	req.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
 	req.Header.Add("Accept-Language", "en")
@@ -97,20 +106,20 @@ func search(pagination, zoomValue int, neLat, neLong, swLat, swLong float64, pro
 	}
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, trace.NewOrAdd(4, "search", "search", err, "")
+		return nil, nil, err
 	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, trace.NewOrAdd(5, "search", "search", err, "")
+		return nil, nil, err
 	}
 	if resp.StatusCode != 200 {
-		errData := fmt.Sprintf("status: %d headers: %+v", resp.StatusCode, resp.Header)
-		return nil, trace.NewOrAdd(6, "search", "search", trace.ErrStatusCode, errData)
+		errData := fmt.Errorf("status: %d headers: %+v", resp.StatusCode, resp.Header)
+		return nil, nil, errData
 	}
 	body = utils.RemoveSpaceByte(body)
 	var output output
 	if err := json.Unmarshal(body, &output); err != nil {
-		return nil, trace.NewOrAdd(7, "search", "search", err, "")
+		return nil, nil, err
 	}
-	return output.Cat1.SearchResults.ListResults, nil
+	return output.Cat1.SearchResults.ListResults, output.Cat1.SearchResults.MapResults, nil
 }
