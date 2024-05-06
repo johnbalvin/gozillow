@@ -57,10 +57,10 @@ SearchForSale //for searching properties for sale
             },
         }
         zoomValue := 2
-        //pagination is for the list that you see at the right when searching, it's not required you iterate over all the pages because
-        //zillow sends the whole data on the map results at once on the first page
-        //however the maximum result zillow returns is 500, so if the full result from the map is 500 you probably need to increase the zoom value
-        //or apply other filter to get all the results, pagination won't help
+        //pagination is for the list that you see at the right when searching
+        //you don't need to iterate over all the pages because zillow sends the whole data on mapresults at once on the first page
+        //however the maximum result zillow returns is 500, so if mapResults is 500
+        //try playing with the zoom or moving the coordinates, pagination won't help because you will always get at maximum 500 results
         pagination := 1
         _, fullResult, err := gozillow.SearchSold(pagination, zoomValue, coords, nil)
         if err != nil {
@@ -101,10 +101,10 @@ SearchForSale //for searching properties for sale
             },
         }
         zoomValue := 2
-        //pagination is for the list that you see at the right when searching, it's not required you iterate over all the pages because
-        //zillow sends the whole data on the map results at once on the first page
-        //however the maximum result zillow returns is 500, so if the full result from the map is 500 you probably need to increase the zoom value
-        //or apply other filter to get all the results, pagination won't help
+        //pagination is for the list that you see at the right when searching
+        //you don't need to iterate over all the pages because zillow sends the whole data on mapresults at once on the first page
+        //however the maximum result zillow returns is 500, so if mapResults is 500
+        //try playing with the zoom or moving the coordinates, pagination won't help because you will always get at maximum 500 results
         pagination := 1
         _, fullResult, err := gozillow.SearchForRent(pagination, zoomValue, coords, nil)
         if err != nil {
@@ -146,10 +146,10 @@ SearchForSale //for searching properties for sale
     
         // Zoom level (1-20) for search granularity
         zoomValue := 2
-        //pagination is for the list that you see at the right when searching, it's not required you iterate over all the pages because
-        //zillow sends the whole data on the map results at once on the first page
-        //however the maximum result zillow returns is 500, so if the full result from the map is 500 you probably need to increase the zoom value
-        //or apply other filter to get all the results, pagination won't help
+        //pagination is for the list that you see at the right when searching
+        //you don't need to iterate over all the pages because zillow sends the whole data on mapresults at once on the first page
+        //however the maximum result zillow returns is 500, so if mapResults is 500
+        //try playing with the zoom or moving the coordinates, pagination won't help because you will always get at maximum 500 results
         pagination := 1
         // Search for properties within the specified area and zoom level
         _, fullResult, err := gozillow.SearchForSale(pagination, zoomValue, coords, nil) // Optional proxy can be passed here
