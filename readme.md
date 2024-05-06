@@ -18,6 +18,15 @@ The library offers functionalities for retrieving property details using either 
 ```bash
 go get -u github.com/johnbalvin/gozillow
 ```
+## Ways of searching
+
+There are 3 ways of searching, same as on the zillow page
+
+```bash
+SearchSold //for searching properties sold
+SearchForRent //for searching properties to rent
+SearchForSale //for searching properties for sale
+```
 
 ## Examples
 
