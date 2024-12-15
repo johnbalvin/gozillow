@@ -1,4 +1,4 @@
-package details
+package gozillow
 
 type bodyResponse struct {
 	Props prod `json:"props"`

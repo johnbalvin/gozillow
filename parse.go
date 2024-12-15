@@ -1,4 +1,4 @@
-package details
+package gozillow
 
 import (
 	"bytes"
@@ -12,13 +12,6 @@ import (
 )
 
 func ParseBodyDetails(body []byte) (PropertyInfo, error) {
-	dataRaw, err := parseBodyDetails(body)
-	if err != nil {
-		return PropertyInfo{}, err
-	}
-	return dataRaw, nil
-}
-func parseBodyDetails(body []byte) (PropertyInfo, error) {
 	reader := bytes.NewReader(body)
 	doc, err := goquery.NewDocumentFromReader(reader)
 	if err != nil {
@@ -40,5 +33,5 @@ func parseBodyDetails(body []byte) (PropertyInfo, error) {
 	for _, property := range mapData {
 		return property.Property, nil
 	}
-	return PropertyInfo{}, errors.New("Empty result")
+	return PropertyInfo{}, errors.New("empty result")
 }

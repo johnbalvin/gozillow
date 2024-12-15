@@ -33,7 +33,7 @@ SearchForSale //for searching properties for sale
 ### Quick testing
 
 ```Go
-    package main
+    package gozillow
     
     import (
         "encoding/json"
@@ -77,7 +77,7 @@ SearchForSale //for searching properties for sale
 ```
 
 ```Go
-    package main
+    package gozillow
     
     import (
         "encoding/json"
@@ -121,7 +121,7 @@ SearchForSale //for searching properties for sale
 ```
 
 ```Go
-    package main
+    package gozillow
     
     import (
         "encoding/json"
@@ -170,7 +170,7 @@ SearchForSale //for searching properties for sale
 #### Get Property Details using URL
 This example demonstrates how to retrieve property details using a Zillow property URL:
 ```Go
-    package main
+    package gozillow
     
     import (
         "encoding/json"
@@ -205,7 +205,7 @@ This example demonstrates how to retrieve property details using a Zillow proper
 #### Get Property Details using Property ID
 Alternatively, you can retrieve details using the Zillow property ID (zpid) extracted from the URL:
 ```Go
-    package main
+    package gozillow
     
     import (
         "encoding/json"
@@ -237,7 +237,7 @@ Alternatively, you can retrieve details using the Zillow property ID (zpid) extr
 In scenarios where Zillow might have scraping restrictions, you can utilize a proxy to anonymize your requests. Here's an example:
 
 ```Go
-    package main
+    package gozillow
     
     import (
         "encoding/json"
