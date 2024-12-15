@@ -8,7 +8,7 @@ import (
 )
 
 func test() {
-	_, err := FromApartmentURL("https://www.zillow.com/apartments/brenham-tx/harvest-townhomes-at-vintage-farms/CZ3Kzp/", nil)
+	_, err := FromApartmentURL("https://www.zillow.com/apartments/grand-rapids-mi/glen-oaks-east-apartments/5rYc7j/", nil)
 	if err != nil {
 		log.Println(err)
 		return

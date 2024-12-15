@@ -42,7 +42,7 @@ type FloorPlan struct {
 	VrModels          []string `json:"vrModels"`
 	AmenityDetails    []string `json:"amenityDetails"`
 	LeaseTerm         string   `json:"leaseTerm"`
-	DepositsAndFees   *string  `json:"depositsAndFees"`
+	DepositsAndFees   int      `json:"depositsAndFees"`
 	Description       *string  `json:"description"`
 }
 type Unit2 struct {
