@@ -24,9 +24,9 @@ type Building struct {
 	FloorPlans []FloorPlan `json:"floorPlans"`
 }
 type FloorPlan struct {
-	Zpid   string   `json:"zpid"`
-	Units  []Unit2  `json:"units"`
-	Videos []string `json:"videos"`
+	Zpid  string  `json:"zpid"`
+	Units []Unit2 `json:"units"`
+	//Videos []string `json:"videos"`
 	//FloorPlanUnitPhotos []string `json:"floorPlanUnitPhotos"`
 	FloorplanVRModel  *string  `json:"floorplanVRModel"`
 	UnitSpecialOffers *string  `json:"unitSpecialOffers"`
