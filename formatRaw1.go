@@ -11,7 +11,39 @@ type pageProps struct {
 	ComponentProps componentProps `json:"componentProps"`
 }
 type componentProps struct {
-	GdpClientCache string `json:"gdpClientCache"`
+	GdpClientCache    string            `json:"gdpClientCache"`
+	InitialReduxState InitialReduxState `json:"initialReduxState"`
+}
+type InitialReduxState struct {
+	GDP GDP `json:"gdp"`
+}
+type GDP struct {
+	Building Building `json:"building"`
+}
+type Building struct {
+	FloorPlans []FloorPlan `json:"floorPlans"`
+}
+type FloorPlan struct {
+	Zpid                string   `json:"zpid"`
+	Units               *string  `json:"units"`
+	Videos              []string `json:"videos"`
+	FloorPlanUnitPhotos []string `json:"floorPlanUnitPhotos"`
+	FloorplanVRModel    *string  `json:"floorplanVRModel"`
+	UnitSpecialOffers   *string  `json:"unitSpecialOffers"`
+	MinPrice            int      `json:"minPrice"`
+	MaxPrice            int      `json:"maxPrice"`
+	Beds                int      `json:"beds"`
+	MaloneId            *string  `json:"maloneId"`
+	AvailableFrom       string   `json:"availableFrom"`
+	Baths               int      `json:"baths"`
+	Name                string   `json:"name"`
+	Photos              []Photo  `json:"photos"`
+	Sqft                int      `json:"sqft"`
+	VrModels            []string `json:"vrModels"`
+	AmenityDetails      []string `json:"amenityDetails"`
+	LeaseTerm           string   `json:"leaseTerm"`
+	DepositsAndFees     *string  `json:"depositsAndFees"`
+	Description         *string  `json:"description"`
 }
 type property struct {
 	Property PropertyInfo `json:"property"`

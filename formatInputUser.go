@@ -18,12 +18,12 @@ type Coordinates struct {
 	Longitude float64
 }
 
-func (mapBound MapBounds) parse() mapBounds {
+func (mapBound MapBounds) parse() MapBoundsPage {
 	neLat := mapBound.Ne.Latitude
 	neLong := mapBound.Ne.Longitude
 	swLat := mapBound.Sw.Latitude
 	swLong := mapBound.Sw.Longitude
-	mb := mapBounds{
+	mb := MapBoundsPage{
 		North: neLat,
 		East:  neLong,
 		South: swLat,

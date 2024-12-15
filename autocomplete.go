@@ -46,8 +46,8 @@ type response2 struct {
 }
 
 type RegionState struct {
-	RegionInfo   []RegionInfo `json:"regionInfo"`
-	RegionBounds mapBounds    `json:"regionBounds"`
+	RegionInfo   []RegionInfo  `json:"regionInfo"`
+	RegionBounds MapBoundsPage `json:"regionBounds"`
 }
 
 type RegionInfo struct {
@@ -141,12 +141,12 @@ func GetAutocomplete1(query string, proxyURL *url.URL) ([]Result, error) {
 	return respSearch.Data.SearchAssistanceResult.Results, nil
 }
 
-func GetAutocomplete2(regionID int, proxyURL *url.URL) (mapBounds, error) {
+func GetAutocomplete2(regionID int, proxyURL *url.URL) (MapBoundsPage, error) {
 	rawInput := `{"searchQueryState":{"pagination":{},"isMapVisible":true,"mapBounds":{"west":-81.28426248920138,"east":-74.85726053607638,"south":33.384359500366614,"north":36.86965680294794},"regionSelection":[{"regionId":%d}],"filterState":{"isForRent":{"value":true},"isForSaleByAgent":{"value":false},"isForSaleByOwner":{"value":false},"isNewConstruction":{"value":false},"isComingSoon":{"value":false},"isAuction":{"value":false},"isForSaleForeclosure":{"value":false},"isTownhouse":{"value":false},"isMultiFamily":{"value":false},"isCondo":{"value":false},"isLotLand":{"value":false},"isApartment":{"value":false},"isManufactured":{"value":false},"isApartmentOrCondo":{"value":false}},"isListVisible":true,"mapZoom":8},"wants":{"regionResults":["regionResults"]},"requestId":9,"isDebugRequest":false}`
 	rawData := fmt.Sprintf(rawInput, regionID)
 	req, err := http.NewRequest("PUT", "https://www.zillow.com/async-create-search-page-state", strings.NewReader(rawData))
 	if err != nil {
-		return mapBounds{}, err
+		return MapBoundsPage{}, err
 	}
 	req.Header.Add("Accept", "*/*")
 	req.Header.Add("Accept-Language", "en")
@@ -179,19 +179,19 @@ func GetAutocomplete2(regionID int, proxyURL *url.URL) (mapBounds, error) {
 	}
 	resp, err := client.Do(req)
 	if err != nil {
-		return mapBounds{}, err
+		return MapBoundsPage{}, err
 	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return mapBounds{}, err
+		return MapBoundsPage{}, err
 	}
 	var respSearch response2
 	if err := json.Unmarshal(body, &respSearch); err != nil {
-		return mapBounds{}, err
+		return MapBoundsPage{}, err
 	}
 	if resp.StatusCode != 200 {
 		errData := fmt.Errorf("status: %d headers: %+v", resp.StatusCode, resp.Header)
-		return mapBounds{}, errData
+		return MapBoundsPage{}, errData
 	}
 	return respSearch.RegionState.RegionBounds, nil
 }

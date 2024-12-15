@@ -8,6 +8,13 @@ import (
 )
 
 func test() {
+	_, err := FromApartmentURL("https://www.zillow.com/apartments/caledonia-mi/river-brich-apartments/9RGdHc/", nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	return
+	//
 	filter := Filter{
 		Beds:      MinMax{0, 0},
 		Bathrooms: MinMax{0, 0},

@@ -11,7 +11,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func ParseBodyDetails(body []byte) (PropertyInfo, error) {
+func ParseBodyDetailsHome(body []byte) (PropertyInfo, error) {
 	reader := bytes.NewReader(body)
 	doc, err := goquery.NewDocumentFromReader(reader)
 	if err != nil {
@@ -34,4 +34,22 @@ func ParseBodyDetails(body []byte) (PropertyInfo, error) {
 		return property.Property, nil
 	}
 	return PropertyInfo{}, errors.New("empty result")
+}
+
+func ParseBodyDetailsApartment(body []byte) ([]FloorPlan, error) {
+	reader := bytes.NewReader(body)
+	doc, err := goquery.NewDocumentFromReader(reader)
+	if err != nil {
+		return nil, err
+	}
+	htmlData, err := doc.Find("#__NEXT_DATA__").Html()
+	if err != nil {
+		return nil, err
+	}
+	htmlData = utils.RemoveSpace(html.UnescapeString(htmlData))
+	var data bodyResponse
+	if err := json.Unmarshal([]byte(htmlData), &data); err != nil {
+		return nil, err
+	}
+	return data.Props.PageProps.ComponentProps.InitialReduxState.GDP.Building.FloorPlans, nil
 }

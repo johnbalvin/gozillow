@@ -43,16 +43,16 @@ type searchRequest struct {
 }
 
 type searchQueryState struct {
-	IsMapVisible    bool       `json:"isMapVisible"`
-	IsListVisible   bool       `json:"isListVisible"`
-	MapZoom         int        `json:"mapZoom"`
-	MapBounds       mapBounds  `json:"mapBounds"`
-	FilterState     any        `json:"filterState"`
-	Pagination      pagination `json:"pagination"`
-	UsersSearchTerm string     `json:"usersSearchTerm"`
+	IsMapVisible    bool          `json:"isMapVisible"`
+	IsListVisible   bool          `json:"isListVisible"`
+	MapZoom         int           `json:"mapZoom"`
+	MapBounds       MapBoundsPage `json:"mapBounds"`
+	FilterState     any           `json:"filterState"`
+	Pagination      pagination    `json:"pagination"`
+	UsersSearchTerm string        `json:"usersSearchTerm"`
 }
 
-type mapBounds struct {
+type MapBoundsPage struct {
 	East  float64 `json:"east"`
 	North float64 `json:"north"`
 	South float64 `json:"south"`
