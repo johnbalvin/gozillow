@@ -24,26 +24,42 @@ type Building struct {
 	FloorPlans []FloorPlan `json:"floorPlans"`
 }
 type FloorPlan struct {
-	Zpid                string   `json:"zpid"`
-	Units               *string  `json:"units"`
-	Videos              []string `json:"videos"`
-	FloorPlanUnitPhotos []string `json:"floorPlanUnitPhotos"`
-	FloorplanVRModel    *string  `json:"floorplanVRModel"`
-	UnitSpecialOffers   *string  `json:"unitSpecialOffers"`
-	MinPrice            int      `json:"minPrice"`
-	MaxPrice            int      `json:"maxPrice"`
-	Beds                int      `json:"beds"`
-	MaloneId            *string  `json:"maloneId"`
-	AvailableFrom       string   `json:"availableFrom"`
-	Baths               int      `json:"baths"`
-	Name                string   `json:"name"`
-	Photos              []Photo  `json:"photos"`
-	Sqft                int      `json:"sqft"`
-	VrModels            []string `json:"vrModels"`
-	AmenityDetails      []string `json:"amenityDetails"`
-	LeaseTerm           string   `json:"leaseTerm"`
-	DepositsAndFees     *string  `json:"depositsAndFees"`
-	Description         *string  `json:"description"`
+	Zpid   string   `json:"zpid"`
+	Units  []Unit2  `json:"units"`
+	Videos []string `json:"videos"`
+	//FloorPlanUnitPhotos []string `json:"floorPlanUnitPhotos"`
+	FloorplanVRModel  *string  `json:"floorplanVRModel"`
+	UnitSpecialOffers *string  `json:"unitSpecialOffers"`
+	MinPrice          int      `json:"minPrice"`
+	MaxPrice          int      `json:"maxPrice"`
+	Beds              int      `json:"beds"`
+	MaloneId          *string  `json:"maloneId"`
+	AvailableFrom     string   `json:"availableFrom"`
+	Baths             int      `json:"baths"`
+	Name              string   `json:"name"`
+	Photos            []Photo  `json:"photos"`
+	Sqft              int      `json:"sqft"`
+	VrModels          []string `json:"vrModels"`
+	AmenityDetails    []string `json:"amenityDetails"`
+	LeaseTerm         string   `json:"leaseTerm"`
+	DepositsAndFees   *string  `json:"depositsAndFees"`
+	Description       *string  `json:"description"`
+}
+type Unit2 struct {
+	UnitNumber                       string  `json:"unitNumber"`
+	Zpid                             string  `json:"zpid"`
+	HousingConnector                 bool    `json:"housingConnector"`
+	HousingConnectorExclusive        bool    `json:"housingConnectorExclusive"`
+	Beds                             int     `json:"beds"`
+	VrModel                          *string `json:"vrModel"`
+	AvailableFrom                    string  `json:"availableFrom"`
+	HasApprovedThirdPartyVirtualTour bool    `json:"hasApprovedThirdPartyVirtualTour"`
+	Price                            int     `json:"price"`
+	MinPrice                         *int    `json:"minPrice"`
+	MaxPrice                         *int    `json:"maxPrice"`
+	//ThirdPartyVirtualTour            *string `json:"thirdPartyVirtualTour"`
+	UnitVRModel *string `json:"unitVRModel"`
+	Sqft        int     `json:"sqft"`
 }
 type property struct {
 	Property PropertyInfo `json:"property"`
