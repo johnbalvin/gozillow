@@ -33,7 +33,7 @@ type FloorPlan struct {
 	MinPrice          int      `json:"minPrice"`
 	MaxPrice          int      `json:"maxPrice"`
 	Beds              int      `json:"beds"`
-	MaloneId          *string  `json:"maloneId"`
+	MaloneId          string   `json:"maloneId"`
 	AvailableFrom     string   `json:"availableFrom"`
 	Baths             int      `json:"baths"`
 	Name              string   `json:"name"`
@@ -42,8 +42,8 @@ type FloorPlan struct {
 	VrModels          []string `json:"vrModels"`
 	AmenityDetails    []string `json:"amenityDetails"`
 	LeaseTerm         string   `json:"leaseTerm"`
-	DepositsAndFees   int      `json:"depositsAndFees"`
-	Description       *string  `json:"description"`
+	DepositsAndFees   float32  `json:"depositsAndFees"`
+	Description       string   `json:"description"`
 }
 type Unit2 struct {
 	UnitNumber                       string  `json:"unitNumber"`
@@ -55,8 +55,8 @@ type Unit2 struct {
 	AvailableFrom                    string  `json:"availableFrom"`
 	HasApprovedThirdPartyVirtualTour bool    `json:"hasApprovedThirdPartyVirtualTour"`
 	Price                            int     `json:"price"`
-	MinPrice                         *int    `json:"minPrice"`
-	MaxPrice                         *int    `json:"maxPrice"`
+	MinPrice                         int     `json:"minPrice"`
+	MaxPrice                         int     `json:"maxPrice"`
 	//ThirdPartyVirtualTour            *string `json:"thirdPartyVirtualTour"`
 	UnitVRModel *string `json:"unitVRModel"`
 	Sqft        int     `json:"sqft"`
