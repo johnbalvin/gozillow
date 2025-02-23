@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/corpix/uarand"
 	"github.com/johnbalvin/gozillow/utils"
 )
 
@@ -83,7 +84,7 @@ func search[filtersTypes filterInputSale | filterInputRent | filterInputSold](pa
 	return output.Cat1.SearchResults.ListResults, output.Cat1.SearchResults.MapResults, nil
 }
 
-func FromPropertyURL(roomURL string, proxyURL *url.URL) (PropertyInfo, error) {
+func fromPropertyURL(roomURL string, proxyURL *url.URL) (PropertyInfo, error) {
 	req, err := http.NewRequest("GET", roomURL, nil)
 	if err != nil {
 		return PropertyInfo{}, err
@@ -100,7 +101,7 @@ func FromPropertyURL(roomURL string, proxyURL *url.URL) (PropertyInfo, error) {
 	req.Header.Add("Sec-Fetch-Site", "none")
 	req.Header.Add("Sec-Fetch-User", "?1")
 	req.Header.Add("Upgrade-Insecure-Requests", "1")
-	req.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+	req.Header.Add("User-Agent", uarand.GetRandom())
 	transport := &http.Transport{
 		MaxIdleConnsPerHost: 30,
 		DisableKeepAlives:   true,
@@ -147,7 +148,7 @@ func FromPropertyURL(roomURL string, proxyURL *url.URL) (PropertyInfo, error) {
 	return data, nil
 }
 
-func FromApartmentURL(roomURL string, proxyURL *url.URL) ([]FloorPlan, error) {
+func fromApartmentURL(roomURL string, proxyURL *url.URL) ([]FloorPlan, error) {
 	req, err := http.NewRequest("GET", roomURL, nil)
 	if err != nil {
 		return nil, err
@@ -164,7 +165,7 @@ func FromApartmentURL(roomURL string, proxyURL *url.URL) ([]FloorPlan, error) {
 	req.Header.Add("Sec-Fetch-Site", "none")
 	req.Header.Add("Sec-Fetch-User", "?1")
 	req.Header.Add("Upgrade-Insecure-Requests", "1")
-	req.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+	req.Header.Add("User-Agent", uarand.GetRandom())
 	transport := &http.Transport{
 		MaxIdleConnsPerHost: 30,
 		DisableKeepAlives:   true,

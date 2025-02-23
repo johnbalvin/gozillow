@@ -5,13 +5,13 @@ import (
 	"net/url"
 )
 
-func FromPropertyID(propertyID int64, proxyURL *url.URL) (PropertyInfo, error) {
+func FromPropertyID(maxRetries int, propertyID int64, proxyURL *url.URL) (PropertyInfo, int, error) {
 	propertyURL := fmt.Sprintf("https://www.zillow.com/homedetails/any-title/%d_zpid/", propertyID)
-	data, err := FromPropertyURL(propertyURL, proxyURL)
+	data, triesMade, err := FromPropertyURL(maxRetries, propertyURL, proxyURL)
 	if err != nil {
-		return PropertyInfo{}, err
+		return PropertyInfo{}, triesMade, err
 	}
-	return data, nil
+	return data, triesMade, nil
 }
 
 func (filter Filter) ForSale(paginationN, zoomValue int, searchValue string, mapBound MapBounds, proxyURL *url.URL) ([]ListResult, []MapResult, error) {
